@@ -9,8 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    build-essential \
+    git sudo build-essential \
     python3-venv \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
