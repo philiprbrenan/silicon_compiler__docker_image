@@ -26,6 +26,10 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir .
 RUN pip3 list
 RUN sc-install openroad
+RUN sc-install klayout
+RUN sc-install yosys
+RUN sc-install sv2v
+RUN sc-install yosys-slang
 
 # Default shell
 CMD ["/bin/bash"]
