@@ -1,0 +1,31 @@
+# A
+# SiliconCompiler Development Environment
+#
+# Use the latest stable Python image
+FROM python:latest
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    build-essential \
+    python3-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+# Clone SiliconCompiler repository
+WORKDIR /opt
+RUN git clone https://github.com/siliconcompiler/siliconcompiler
+
+# Set working directory
+WORKDIR /opt/siliconcompiler
+
+# Upgrade pip and install SiliconCompiler
+RUN pip3 install --upgrade pip
+RUN pip3 install --no-cache-dir .
+RUN pip3 list
+
+# Default shell
+CMD ["/bin/bash"]
