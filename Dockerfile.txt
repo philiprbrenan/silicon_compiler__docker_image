@@ -1,8 +1,7 @@
-# A
 # SiliconCompiler Development Environment
 #
 # Use the latest stable Python image
-FROM python:latest
+FROM ubuntu:22.04
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
