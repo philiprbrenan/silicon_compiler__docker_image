@@ -1,18 +1,14 @@
-# SiliconCompiler Development Environment
-#
-# Use the latest stable Python image
+# Silicon Compiler Development Environment for ASIC Development Installed in a Docker Image
 FROM ubuntu:22.04
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git sudo build-essential \
-    python3-venv \
-    python3-pip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends git sudo build-essential python3-venv python3-pip
+RUN rm -rf /var/lib/apt/lists/*
 
 # Clone SiliconCompiler repository
 WORKDIR /opt
@@ -22,14 +18,17 @@ RUN git clone https://github.com/siliconcompiler/siliconcompiler
 WORKDIR /opt/siliconcompiler
 
 # Upgrade pip and install SiliconCompiler
-RUN pip3 install --upgrade pip
-RUN pip3 install --no-cache-dir .
-RUN pip3 list
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --no-cache-dir .
+RUN python3 -m pip list
 RUN sc-install openroad
 RUN sc-install klayout
 RUN sc-install yosys
 RUN sc-install sv2v
 RUN sc-install yosys-slang
+
+# Default entry folder
+WORKDIR /app
 
 # Default shell
 CMD ["/bin/bash"]
